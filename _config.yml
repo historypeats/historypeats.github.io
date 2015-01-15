@@ -3,11 +3,11 @@
 # ----------------------- #
 
 url: http://historypeats.github.io
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+title: HP
+subtitle: Byte Me
+author: historypeats
 simple_search: https://www.google.com/search
-description:
+description: Security Things
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
