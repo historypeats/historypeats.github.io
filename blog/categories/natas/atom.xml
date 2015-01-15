@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Natas | My Octopress Blog]]></title>
+  <link href="http://historypeats.github.io/blog/categories/natas/atom.xml" rel="self"/>
+  <link href="http://historypeats.github.io/"/>
+  <updated>2015-01-15T12:57:16-05:00</updated>
+  <id>http://historypeats.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Natas 1]]></title>
+    <link href="http://historypeats.github.io/blog/2015/01/06/natas-1/"/>
+    <updated>2015-01-06T16:00:59-05:00</updated>
+    <id>http://historypeats.github.io/blog/2015/01/06/natas-1</id>
+    <content type="html"><![CDATA[<pre><code>Username: natas1
+URL:      http://natas1.natas.labs.overthewire.org
+</code></pre>
+
+<p>This challenge was similar to natas 0. However, they added some javascript to prevent us from right-clicking on the page and viewing the source. There are plenty of ways to solve this and bypass that javascript. I elected to just use curl:</p>
+
+<pre><code>curl --user natas1:gtVrDuiDfck831PqWsLEZy5gyDz1clto  http://natas1.natas.labs.overthewire.org/
+</code></pre>
+
+<p>and I got the following source code:</p>
+
+<p>&#8220;`html
+<html>
+<head></p>
+
+<!-- This stuff in the header has nothing to do with the level -->
+
+
+<p><link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" /></p>
+
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+
+
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+
+
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script>
+
+
+<script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+
+
+<script>var wechallinfo = { "level": "natas1", "pass": "gtVrDuiDfck831PqWsLEZy5gyDz1clto" };</script>
+
+
+<p></head>
+<body oncontextmenu="javascript:alert('right clicking has been blocked!');return false;"></p>
+
+<h1>natas1</h1>
+
+
+<div id="content">
+You can find the password for the
+next level on this page, but rightclicking has been blocked!
+
+<!--The password for natas2 is ZluruAthQk7Q2MqmDeTiUij2ZvWy2mBi -->
+</div>
+
+
+<p></body>
+</html>
+&#8220;`</p>
+
+<p>Password: ZluruAthQk7Q2MqmDeTiUij2ZvWy2mBi</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Natas 0]]></title>
+    <link href="http://historypeats.github.io/blog/2015/01/06/natas-0/"/>
+    <updated>2015-01-06T13:20:58-05:00</updated>
+    <id>http://historypeats.github.io/blog/2015/01/06/natas-0</id>
+    <content type="html"><![CDATA[<pre><code>Username: natas0
+URL: http://natas0.natas.labs.overthewire.org
+</code></pre>
+
+<p>This challenge was fairly straight forward. All we need to do is view the page source and we can see in an HTML comment the password for level 1.</p>
+
+<p>&#8220;`html
+<html>
+<head></p>
+
+<!-- This stuff in the header has nothing to do with the level -->
+
+
+<p><link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" /></p>
+
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+
+
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+
+
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script>
+
+
+<script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+
+
+<script>var wechallinfo = { "level": "natas0", "pass": "natas0" };</script>
+
+
+<p></head>
+<body></p>
+
+<h1>natas0</h1>
+
+
+<div id="content">
+You can find the password for the next level on this page.
+
+<!--The password for natas1 is gtVrDuiDfck831PqWsLEZy5gyDz1clto -->
+</div>
+
+
+<p></body>
+</html>
+&#8220;`</p>
+
+<p>Password: gtVrDuiDfck831PqWsLEZy5gyDz1clto</p>
+]]></content>
+  </entry>
+  
+</feed>
