@@ -4,7 +4,7 @@
   <title><![CDATA[Byte Me]]></title>
   <link href="http://historypeats.github.io/atom.xml" rel="self"/>
   <link href="http://historypeats.github.io/"/>
-  <updated>2015-01-16T11:17:41-05:00</updated>
+  <updated>2015-01-16T11:28:55-05:00</updated>
   <id>http://historypeats.github.io/</id>
   <author>
     <name><![CDATA[historypeats]]></name>
@@ -12,6 +12,125 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Bandit 0]]></title>
+    <link href="http://historypeats.github.io/blog/2015/01/16/bandit-0/"/>
+    <updated>2015-01-16T11:21:35-05:00</updated>
+    <id>http://historypeats.github.io/blog/2015/01/16/bandit-0</id>
+    <content type="html"><![CDATA[<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>The password for the next level is stored in a file called readme located in the home directory. Use this password to log into bandit1 using SSH. Whenever you find a password for a level, use SSH to log into that level and continue the game.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Basic beginner linux command stuff.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bandit0@melinda:~$ cat readme
+</span><span class='line'>boJ9jbbUNNfktd78OOpsqOltutMc3MY1</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Password: boJ9jbbUNNfktd78OOpsqOltutMc3MY1</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Natas 4]]></title>
+    <link href="http://historypeats.github.io/blog/2015/01/08/natas-4/"/>
+    <updated>2015-01-08T16:02:47-05:00</updated>
+    <id>http://historypeats.github.io/blog/2015/01/08/natas-4</id>
+    <content type="html"><![CDATA[<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Username: natas4
+</span><span class='line'>URL:      http://natas4.natas.labs.overthewire.org</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This challenge tells us the following information:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Access disallowed. You are visiting from "" while authorized users should come only from "http://natas5.natas.labs.overthewire.org/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So it seems like the application checks the referer of the request. This can easily be bypassed by using some sort of web proxy, such as Burp, and adding the following line in the GET request header:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Referer: http://natas5.natas.labs.overthewire.org/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And the page returns the password for the next stage:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Access granted. The password for natas5 is iX6IOfmpN7AYOQGPwtn3fXpbaJVJcHfq </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Password: iX6IOfmpN7AYOQGPwtn3fXpbaJVJcHfq</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Natas 3]]></title>
+    <link href="http://historypeats.github.io/blog/2015/01/06/natas-3/"/>
+    <updated>2015-01-06T17:23:45-05:00</updated>
+    <id>http://historypeats.github.io/blog/2015/01/06/natas-3</id>
+    <content type="html"><![CDATA[<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Username: natas3
+</span><span class='line'>URL:      http://natas3.natas.labs.overthewire.org</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This challenge again greets us by saying that there is nothing on the page. There is no right-click restriction so we can easily see the source code of the page. This time, in the source code, there is nothing peculiar about the page. However, navigating to <a href="http://natas3.natas.labs.overthewire.org/robots.txt,">http://natas3.natas.labs.overthewire.org/robots.txt,</a> we can see there is a hidden directory called /s3cr3t/.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>User-agent: *
+</span><span class='line'>Disallow: /s3cr3t/
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Navigating to this directory, we see a listing of all the files, including users.txt. The contents of this file are listed below.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>natas4:Z9tkRkWmpt9Qr7XrR5jWRkgOU901swEZ</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Password: Z9tkRkWmpt9Qr7XrR5jWRkgOU901swEZ</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Natas 2]]></title>
+    <link href="http://historypeats.github.io/blog/2015/01/06/natas-2/"/>
+    <updated>2015-01-06T17:06:14-05:00</updated>
+    <id>http://historypeats.github.io/blog/2015/01/06/natas-2</id>
+    <content type="html"><![CDATA[<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Username: natas2
+</span><span class='line'>URL:      http://natas2.natas.labs.overthewire.org</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This challenge greets us by saying that there is nothing on the page. Looking at the source, this is infact true. However, there is a random image found in the source code of the page that points to <a href="http://natas2.natas.labs.overthewire.org/files/pixel.png.">http://natas2.natas.labs.overthewire.org/files/pixel.png.</a></p>
+
+<p>If we try to see the index of the /files/ directory, we see a users.txt file containing the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># username:password
+</span><span class='line'>alice:BYNdCesZqW
+</span><span class='line'>bob:jw2ueICLvT
+</span><span class='line'>charlie:G5vCxkVV3m
+</span><span class='line'>natas3:sJIJNW6ucpu6HPZ1ZAchaDtwd7oGrD14
+</span><span class='line'>eve:zo4mJWyNj2
+</span><span class='line'>mallory:9urtcpzBmH</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Password: sJIJNW6ucpu6HPZ1ZAchaDtwd7oGrD14</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Natas 1]]></title>
