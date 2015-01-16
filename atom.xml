@@ -4,7 +4,7 @@
   <title><![CDATA[Byte Me]]></title>
   <link href="http://historypeats.github.io/atom.xml" rel="self"/>
   <link href="http://historypeats.github.io/"/>
-  <updated>2015-01-16T11:28:55-05:00</updated>
+  <updated>2015-01-16T12:08:55-05:00</updated>
   <id>http://historypeats.github.io/</id>
   <author>
     <name><![CDATA[historypeats]]></name>
@@ -140,7 +140,7 @@
     <content type="html"><![CDATA[<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>Username: natas1
-</span><span class='line'>URL:      http://natas1.natas.labs.overthewire.org</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>URL: http://natas1.natas.labs.overthewire.org</span></code></pre></td></tr></table></div></figure>
 
 
 <p>This challenge was similar to natas 0. However, they added some javascript to prevent us from right-clicking on the page and viewing the source. There are plenty of ways to solve this and bypass that javascript. I elected to just use curl:</p>

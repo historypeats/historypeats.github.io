@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ctf | Byte Me]]></title>
+  <link href="http://historypeats.github.io/blog/categories/ctf/atom.xml" rel="self"/>
+  <link href="http://historypeats.github.io/"/>
+  <updated>2015-01-16T12:08:55-05:00</updated>
+  <id>http://historypeats.github.io/</id>
+  <author>
+    <name><![CDATA[historypeats]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Bandit 0]]></title>
+    <link href="http://historypeats.github.io/blog/2015/01/16/bandit-0/"/>
+    <updated>2015-01-16T11:21:35-05:00</updated>
+    <id>http://historypeats.github.io/blog/2015/01/16/bandit-0</id>
+    <content type="html"><![CDATA[<pre><code>The password for the next level is stored in a file called readme located in the home directory. Use this password to log into bandit1 using SSH. Whenever you find a password for a level, use SSH to log into that level and continue the game.
+</code></pre>
+
+<p>Basic beginner linux command stuff.</p>
+
+<pre><code>bandit0@melinda:~$ cat readme
+boJ9jbbUNNfktd78OOpsqOltutMc3MY1
+</code></pre>
+
+<p>Password: boJ9jbbUNNfktd78OOpsqOltutMc3MY1</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Natas 4]]></title>
+    <link href="http://historypeats.github.io/blog/2015/01/08/natas-4/"/>
+    <updated>2015-01-08T16:02:47-05:00</updated>
+    <id>http://historypeats.github.io/blog/2015/01/08/natas-4</id>
+    <content type="html"><![CDATA[<pre><code>Username: natas4
+URL:      http://natas4.natas.labs.overthewire.org
+</code></pre>
+
+<p>This challenge tells us the following information:
+<code>
+Access disallowed. You are visiting from "" while authorized users should come only from "http://natas5.natas.labs.overthewire.org/
+</code></p>
+
+<p>So it seems like the application checks the referer of the request. This can easily be bypassed by using some sort of web proxy, such as Burp, and adding the following line in the GET request header:</p>
+
+<pre><code>Referer: http://natas5.natas.labs.overthewire.org/
+</code></pre>
+
+<p>And the page returns the password for the next stage:</p>
+
+<pre><code>Access granted. The password for natas5 is iX6IOfmpN7AYOQGPwtn3fXpbaJVJcHfq 
+</code></pre>
+
+<p>Password: iX6IOfmpN7AYOQGPwtn3fXpbaJVJcHfq</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Natas 3]]></title>
+    <link href="http://historypeats.github.io/blog/2015/01/06/natas-3/"/>
+    <updated>2015-01-06T17:23:45-05:00</updated>
+    <id>http://historypeats.github.io/blog/2015/01/06/natas-3</id>
+    <content type="html"><![CDATA[<pre><code>Username: natas3
+URL:      http://natas3.natas.labs.overthewire.org
+</code></pre>
+
+<p>This challenge again greets us by saying that there is nothing on the page. There is no right-click restriction so we can easily see the source code of the page. This time, in the source code, there is nothing peculiar about the page. However, navigating to <a href="http://natas3.natas.labs.overthewire.org/robots.txt,">http://natas3.natas.labs.overthewire.org/robots.txt,</a> we can see there is a hidden directory called /s3cr3t/.</p>
+
+<pre><code>User-agent: *
+Disallow: /s3cr3t/
+</code></pre>
+
+<p>Navigating to this directory, we see a listing of all the files, including users.txt. The contents of this file are listed below.</p>
+
+<pre><code>natas4:Z9tkRkWmpt9Qr7XrR5jWRkgOU901swEZ
+</code></pre>
+
+<p>Password: Z9tkRkWmpt9Qr7XrR5jWRkgOU901swEZ</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Natas 2]]></title>
+    <link href="http://historypeats.github.io/blog/2015/01/06/natas-2/"/>
+    <updated>2015-01-06T17:06:14-05:00</updated>
+    <id>http://historypeats.github.io/blog/2015/01/06/natas-2</id>
+    <content type="html"><![CDATA[<pre><code>Username: natas2
+URL:      http://natas2.natas.labs.overthewire.org
+</code></pre>
+
+<p>This challenge greets us by saying that there is nothing on the page. Looking at the source, this is infact true. However, there is a random image found in the source code of the page that points to <a href="http://natas2.natas.labs.overthewire.org/files/pixel.png.">http://natas2.natas.labs.overthewire.org/files/pixel.png.</a></p>
+
+<p>If we try to see the index of the /files/ directory, we see a users.txt file containing the following:</p>
+
+<pre><code># username:password
+alice:BYNdCesZqW
+bob:jw2ueICLvT
+charlie:G5vCxkVV3m
+natas3:sJIJNW6ucpu6HPZ1ZAchaDtwd7oGrD14
+eve:zo4mJWyNj2
+mallory:9urtcpzBmH
+</code></pre>
+
+<p>Password: sJIJNW6ucpu6HPZ1ZAchaDtwd7oGrD14</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Natas 1]]></title>
+    <link href="http://historypeats.github.io/blog/2015/01/06/natas-1/"/>
+    <updated>2015-01-06T16:00:59-05:00</updated>
+    <id>http://historypeats.github.io/blog/2015/01/06/natas-1</id>
+    <content type="html"><![CDATA[<pre><code>Username: natas1
+URL: http://natas1.natas.labs.overthewire.org
+</code></pre>
+
+<p>This challenge was similar to natas 0. However, they added some javascript to prevent us from right-clicking on the page and viewing the source. There are plenty of ways to solve this and bypass that javascript. I elected to just use curl:</p>
+
+<pre><code>curl --user natas1:gtVrDuiDfck831PqWsLEZy5gyDz1clto  http://natas1.natas.labs.overthewire.org/
+</code></pre>
+
+<p>and I got the following source code:</p>
+
+<p>&#8220;`html
+<html>
+<head></p>
+
+<!-- This stuff in the header has nothing to do with the level -->
+
+
+<p><link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" /></p>
+
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+
+
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+
+
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script>
+
+
+<script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+
+
+<script>var wechallinfo = { "level": "natas1", "pass": "gtVrDuiDfck831PqWsLEZy5gyDz1clto" };</script>
+
+
+<p></head>
+<body oncontextmenu="javascript:alert('right clicking has been blocked!');return false;"></p>
+
+<h1>natas1</h1>
+
+
+<div id="content">
+You can find the password for the
+next level on this page, but rightclicking has been blocked!
+
+<!--The password for natas2 is ZluruAthQk7Q2MqmDeTiUij2ZvWy2mBi -->
+</div>
+
+
+<p></body>
+</html></p>
+
+<p>&#8220;`
+Password: ZluruAthQk7Q2MqmDeTiUij2ZvWy2mBi</p>
+]]></content>
+  </entry>
+  
+</feed>
