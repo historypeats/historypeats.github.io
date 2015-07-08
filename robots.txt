@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-
-Sitemap: http://historypeats.github.io/sitemap.xml 
