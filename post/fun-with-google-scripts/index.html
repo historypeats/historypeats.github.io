@@ -7,7 +7,7 @@
 
   	<meta property="og:title" content=" Fun with Google Scripts &middot;  historypeats" />
   	<meta property="og:site_name" content="historypeats" />
-  	<meta property="og:url" content="http://localhost:1313/post/fun-with-google-scripts/" />
+  	<meta property="og:url" content="http://historypeats.github.io/post/fun-with-google-scripts/" />
     
     
   	<meta property="og:type" content="article" />
@@ -26,22 +26,22 @@
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
-	  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="http://historypeats.github.io/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://historypeats.github.io/images/apple-touch-icon.png" />
     
-    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://historypeats.github.io/css/screen.css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
 
 
     
       
-          <link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="historypeats" />
+          <link href="http://historypeats.github.io/index.xml" rel="alternate" type="application/rss+xml" title="historypeats" />
       
       
     
     <meta name="generator" content="Hugo 0.14" />
 
-    <link rel="canonical" href="http://localhost:1313/post/fun-with-google-scripts/" />
+    <link rel="canonical" href="http://historypeats.github.io/post/fun-with-google-scripts/" />
 
     
 </head>
@@ -58,7 +58,7 @@
     </ul>
     
     
-    <a class="subscribe-button icon-feed" href="http://localhost:1313/index.xml">Subscribe</a>
+    <a class="subscribe-button icon-feed" href="http://historypeats.github.io/index.xml">Subscribe</a>
     
 </div>
 <span class="nav-cover"></span>
@@ -74,7 +74,7 @@
 
   
   
-      <a class="menu-button icon-feed" href="http://localhost:1313/index.xml">&nbsp;&nbsp;Subscribe</a>
+      <a class="menu-button icon-feed" href="http://historypeats.github.io/index.xml">&nbsp;&nbsp;Subscribe</a>
   
   </nav>
 </header>
@@ -103,36 +103,38 @@
     <section class="post-content">
       <p>I was having drinks with a colleague of mine and we discussed the use of Google App Scripts to help improve UI/UX of Google products. The conversation originally started off talking about ways to improve Gmail UX with scripts. Since I&rsquo;ve never used App Scripts before, I thought it would be a good idea to do the Quickstart tutorial and tinker around with it a bit. For those of you who don&rsquo;t know much about Apps Scripts, it&rsquo;s basically a Google &ldquo;javascript-esque&rdquo; scripting language that allows you add functionality to almost all of the Google Apps: Sheets, Drive, Calendar, Contacts, etc.</p>
 
-<p>If anyone knows me, they&rsquo;ll know that I love abusing system functionality &ndash; especially in regards to persistence, rootkits, (spy/mal/etc.)ware, and C&amp;C. So I set off to tried to see what I could develop with App Scripts in regards to gaining and/or maintaining persistent access to a user&rsquo;s account. This post shares some of my research.</p>
+<p>If anyone knows me, they&rsquo;ll know that I love abusing system functionality &ndash; especially in regards to persistence, rootkits, (spy/mal/etc.)ware, and C&amp;C. So I set off and tried to see what I could develop with App Scripts in regards to gaining and/or maintaining persistent access to a user&rsquo;s account. This post shares some of my research.</p>
 
 <p>Note: There are no exploits or vulnerabilities discussed in this post. The current attack vector discussed would be if you have physical access to someone&rsquo;s account and the use of Bound Scripts (more on this later). There may be other methods of installing the script, but this research was more focused towards what can be done using App Scripts.</p>
+
+<p><strong>tl;dr</strong> Here&rsquo;s the repo with the code: <a href="https://github.com/historypeats/gookit">https://github.com/historypeats/gookit</a></p>
 
 <p><h3>Some Background </h3>
 Just to give you guys a little more background on Google App Scripts, there are three types of scripts: Standalone, Bound, and Web Apps/Gadgets. <br />
 <ul>
 <li>Standalone - These scripts are basically scripts you&rsquo;ll see in your Google Drive. To run then, you need to open them up and press the <strong>Run</strong> button.</li>
-<li>Bound - These scripts are bound to a single document (Doc, Sheet, etc.) and can execute in a few different ways. See the reference below about Triggers. </li>
+<li>Bound - These scripts are bound to a single document (Doc, Sheet, etc.) and execute when a document is opened using the On Open Trigger. </li>
 <li>Web App - These scripts are a lot like Standalone scripts except that they act as a web app. Once created and installed, you will be given a URL to the web app.</li>
 </ul></p>
 
 <p><h3>Standalone</h3>
 In order for these types of scripts to be run, the user must open up the script doc and run it. Since this seemed like the least likeliest to succeed in an attack, I did not further investigate possible scenarios. This doesn&rsquo;t mean that there are zero use-cases for them in an attack. I just couldn&rsquo;t thinking of a way. If anyone figures out a more creative way to abuse these types of scripts, I&rsquo;d certainly love to hear more about it. I can be contacted via Twitter.</p>
 
-<p><h3>Bound (Malware Documents) </h3>
-The first item on my list to check was to see if it was possible to send another user malicious scripts via sharing a Google Doc, Sheet, etc. with another user. I basically wanted to see if it was possible to replicate what can be done with Microsoft Office documents and Macros. After reading documentation and tinkering around with a &ldquo;backdoored&rdquo; Doc, I quickly came to the conclusion that this attack vector had serious limitations and can be only be used in very niche scenarios. <br /></p>
+<p><h3>Bound</h3>
+The first item on my list to check with Bound scripts was to see if it was possible to send another user malicious scripts via sharing a Google Doc, Sheet, etc. with another user. I basically wanted to see if it was possible to replicate what can be done with Microsoft Office documents and Macros. After reading documentation and tinkering around with a &ldquo;backdoored&rdquo; Doc, I quickly came to the conclusion that this attack vector had serious limitations and did not have much potential. In short, there is no way for a Bound script to exfil data successfully. Access to the URLFetch and openByUrl methods are restricted in Bound scripts. This makes this type of script almost pointless. <br /></p>
 
-<p><strong>Attack Vector</strong><br />
-What&rsquo;s interesting with Bound scripts is that if one user binds a script to a document and shares the document with another user, that user will also execute the script but under the context of their identity without permission. What this means is that you can share a malicious document with another user and have it run without that user knowing it&rsquo;s execution. Sounds great right? Unfortunately, Google has done a great job with limiting the permissions for bounded scripts.</p>
+<p><strong>Note:</strong><br /> It&rsquo;s still fun to use Bound scripts to change words and troll people for fun :)<br /></p>
 
-<p>Example Code Snippet:
-<br />
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #f92672">&lt;html&gt;</span>
-<span style="color: #f92672">&lt;body&gt;</span>
-<span style="color: #f92672">&lt;p&gt;</span> hi<span style="color: #f92672">&lt;/p&gt;</span>
-<span style="color: #f92672">&lt;/body&gt;</span>
-<span style="color: #f92672">&lt;/html&gt;</span>
-</pre></div>
-</p>
+<p><h3>Web App</h3>
+The last type of script turned out to be what I was looking for. By creating a Web App, you essentially have persistent access to a user&rsquo;s Google account. Once again I&rsquo;ll reiterate that the current method for installing the Web App is by having some sort of initial access to their Google account. Since this is likely to be used after gaining initial access to a Google account, I guess I&rsquo;ll call this some sort of Google &ldquo;Rootkit&rdquo;&hellip;<strong>Gookit</strong>?<br /></p>
+
+<p>At a high level, the PoC Gookit basically acts as a webapp that accepts base64 encoded commands, runs it via eval, and returns the data. Gookit is also the slave and calls home to the master. This PoC was designed with C&amp;C in mind.</p>
+
+<p><strong>Stealth</strong><br />
+What&rsquo;s interesting about Web App scripts is that once they are published, even if the script has been discovered in Google Drive, if the user &ldquo;Removes&rdquo; it from Drive, it is still fully operational and just sits in the Trash. It isn&rsquo;t until it has been removed from the Trash will it finally be removed. I thought this was kinda neat.</p>
+
+<p><h3>Gookit</h3>
+You can find Gookit and installation/pics in the repo: <a href="https://github.com/historypeats/gookit">https://github.com/historypeats/gookit</a></p>
 
     </section>
 
@@ -149,9 +151,9 @@ What&rsquo;s interesting with Bound scripts is that if one user binds a script t
 
 
 <section class="author">
-  <h4><a href="http://localhost:1313/">historypeats</a></h4>
+  <h4><a href="http://historypeats.github.io/">historypeats</a></h4>
   
-  <p>Read <a href="http://localhost:1313/">more posts</a> by this author.</p>
+  <p>Read <a href="http://historypeats.github.io/">more posts</a> by this author.</p>
   
   <div class="author-meta">
     
@@ -164,15 +166,15 @@ What&rsquo;s interesting with Bound scripts is that if one user binds a script t
     
     <section class="share">
       <h4>Share this post</h4>
-      <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Fun%20with%20Google%20Scripts&amp;url=http%3a%2f%2flocalhost%3a1313%2fpost%2ffun-with-google-scripts%2f"
+      <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Fun%20with%20Google%20Scripts&amp;url=http%3a%2f%2fhistorypeats.github.io%2fpost%2ffun-with-google-scripts%2f"
           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <span class="hidden">Twitter</span>
       </a>
-      <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2ffun-with-google-scripts%2f"
+      <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fhistorypeats.github.io%2fpost%2ffun-with-google-scripts%2f"
           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
           <span class="hidden">Facebook</span>
       </a>
-      <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2ffun-with-google-scripts%2f"
+      <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=http%3a%2f%2fhistorypeats.github.io%2fpost%2ffun-with-google-scripts%2f"
          onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
           <span class="hidden">Google+</span>
       </a>
@@ -192,13 +194,10 @@ What&rsquo;s interesting with Bound scripts is that if one user binds a script t
         
     </footer>
     </div>
-    <script type="text/javascript" src="http://localhost:1313/js/jquery.js"></script>
-    <script type="text/javascript" src="http://localhost:1313/js/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="http://localhost:1313/js/index.js"></script>
+    <script type="text/javascript" src="http://historypeats.github.io/js/jquery.js"></script>
+    <script type="text/javascript" src="http://historypeats.github.io/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://historypeats.github.io/js/index.js"></script>
 
-<script data-no-instant>document.write('<script src="http://'
-        + (location.host || 'localhost').split(':')[0]
-		+ ':1313/livereload.js?mindelay=10"></'
-        + 'script>')</script></body>
+</body>
 </html>
 

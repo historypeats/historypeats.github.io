@@ -7,7 +7,51 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>All rights reserved - 2015</copyright>
+    <lastBuildDate>Mon, 08 Jun 2015 13:55:57 -0400</lastBuildDate>
     <atom:link href="http://historypeats.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Fun with Google Scripts</title>
+      <link>http://historypeats.github.io/post/fun-with-google-scripts/</link>
+      <pubDate>Mon, 08 Jun 2015 13:55:57 -0400</pubDate>
+      
+      <guid>http://historypeats.github.io/post/fun-with-google-scripts/</guid>
+      <description>&lt;p&gt;I was having drinks with a colleague of mine and we discussed the use of Google App Scripts to help improve UI/UX of Google products. The conversation originally started off talking about ways to improve Gmail UX with scripts. Since I&amp;rsquo;ve never used App Scripts before, I thought it would be a good idea to do the Quickstart tutorial and tinker around with it a bit. For those of you who don&amp;rsquo;t know much about Apps Scripts, it&amp;rsquo;s basically a Google &amp;ldquo;javascript-esque&amp;rdquo; scripting language that allows you add functionality to almost all of the Google Apps: Sheets, Drive, Calendar, Contacts, etc.&lt;/p&gt;
+
+&lt;p&gt;If anyone knows me, they&amp;rsquo;ll know that I love abusing system functionality &amp;ndash; especially in regards to persistence, rootkits, (spy/mal/etc.)ware, and C&amp;amp;C. So I set off and tried to see what I could develop with App Scripts in regards to gaining and/or maintaining persistent access to a user&amp;rsquo;s account. This post shares some of my research.&lt;/p&gt;
+
+&lt;p&gt;Note: There are no exploits or vulnerabilities discussed in this post. The current attack vector discussed would be if you have physical access to someone&amp;rsquo;s account and the use of Bound Scripts (more on this later). There may be other methods of installing the script, but this research was more focused towards what can be done using App Scripts.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;tl;dr&lt;/strong&gt; Here&amp;rsquo;s the repo with the code: &lt;a href=&#34;https://github.com/historypeats/gookit&#34;&gt;https://github.com/historypeats/gookit&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;h3&gt;Some Background &lt;/h3&gt;
+Just to give you guys a little more background on Google App Scripts, there are three types of scripts: Standalone, Bound, and Web Apps/Gadgets. &lt;br /&gt;
+&lt;ul&gt;
+&lt;li&gt;Standalone - These scripts are basically scripts you&amp;rsquo;ll see in your Google Drive. To run then, you need to open them up and press the &lt;strong&gt;Run&lt;/strong&gt; button.&lt;/li&gt;
+&lt;li&gt;Bound - These scripts are bound to a single document (Doc, Sheet, etc.) and execute when a document is opened using the On Open Trigger. &lt;/li&gt;
+&lt;li&gt;Web App - These scripts are a lot like Standalone scripts except that they act as a web app. Once created and installed, you will be given a URL to the web app.&lt;/li&gt;
+&lt;/ul&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;h3&gt;Standalone&lt;/h3&gt;
+In order for these types of scripts to be run, the user must open up the script doc and run it. Since this seemed like the least likeliest to succeed in an attack, I did not further investigate possible scenarios. This doesn&amp;rsquo;t mean that there are zero use-cases for them in an attack. I just couldn&amp;rsquo;t thinking of a way. If anyone figures out a more creative way to abuse these types of scripts, I&amp;rsquo;d certainly love to hear more about it. I can be contacted via Twitter.&lt;/p&gt;
+
+&lt;p&gt;&lt;h3&gt;Bound&lt;/h3&gt;
+The first item on my list to check with Bound scripts was to see if it was possible to send another user malicious scripts via sharing a Google Doc, Sheet, etc. with another user. I basically wanted to see if it was possible to replicate what can be done with Microsoft Office documents and Macros. After reading documentation and tinkering around with a &amp;ldquo;backdoored&amp;rdquo; Doc, I quickly came to the conclusion that this attack vector had serious limitations and did not have much potential. In short, there is no way for a Bound script to exfil data successfully. Access to the URLFetch and openByUrl methods are restricted in Bound scripts. This makes this type of script almost pointless. &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt;&lt;br /&gt; It&amp;rsquo;s still fun to use Bound scripts to change words and troll people for fun :)&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;h3&gt;Web App&lt;/h3&gt;
+The last type of script turned out to be what I was looking for. By creating a Web App, you essentially have persistent access to a user&amp;rsquo;s Google account. Once again I&amp;rsquo;ll reiterate that the current method for installing the Web App is by having some sort of initial access to their Google account. Since this is likely to be used after gaining initial access to a Google account, I guess I&amp;rsquo;ll call this some sort of Google &amp;ldquo;Rootkit&amp;rdquo;&amp;hellip;&lt;strong&gt;Gookit&lt;/strong&gt;?&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;At a high level, the PoC Gookit basically acts as a webapp that accepts base64 encoded commands, runs it via eval, and returns the data. Gookit is also the slave and calls home to the master. This PoC was designed with C&amp;amp;C in mind.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Stealth&lt;/strong&gt;&lt;br /&gt;
+What&amp;rsquo;s interesting about Web App scripts is that once they are published, even if the script has been discovered in Google Drive, if the user &amp;ldquo;Removes&amp;rdquo; it from Drive, it is still fully operational and just sits in the Trash. It isn&amp;rsquo;t until it has been removed from the Trash will it finally be removed. I thought this was kinda neat.&lt;/p&gt;
+
+&lt;p&gt;&lt;h3&gt;Gookit&lt;/h3&gt;
+You can find Gookit and installation/pics in the repo: &lt;a href=&#34;https://github.com/historypeats/gookit&#34;&gt;https://github.com/historypeats/gookit&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
   </channel>
 </rss>
